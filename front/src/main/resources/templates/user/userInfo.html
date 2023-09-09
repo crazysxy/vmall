@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title>个人信息</title>
+		<link rel="icon" href="../static/img/logo.png" type="image/x-icon">
+		<link rel="stylesheet" type="text/css" href="../../static/css/site.css"
+			th:href="@{/css/site.css}"/>
+		<link rel="stylesheet" type="text/css" href="../../static/css/center.css"
+			th:href="@{/css/center.css}"/>
+		<link rel="stylesheet" type="text/css" href="../../static/layui/css/layui.css"
+			  th:href="@{/layui/css/layui.css}"/>
+
+		<script type="text/javascript" src="../../static/layui/layui.js" th:src="@{/layui/layui.js}"></script>
+		<script type="text/javascript" src="../../static/layui/layui.js" th:src="@{/js/jquery-2.1.4.js}"></script>
+
+	</head>
+	<body>
+	
+		<div id="header" th:replace="frag::header"></div>
+		
+		<div class="user-center">
+			<div class="container clear">
+				<div class="crumbs">
+					<a href="../index.html">首页</a>
+					<span class="sep">/</span>
+					<a >交易订单</a>
+				</div>
+				
+				<div class="menu">
+					<h3>订单中心</h3>
+					<ul>
+						<li><a href="orderList.html" th:href="@{/user/order/toList}">我的订单</a></li>
+
+					</ul>
+					
+					<h3>个人中心</h3>
+					<ul>
+						<li ><a href="">我的个人中心</a></li>
+						<li><a href="addr.html" th:href="@{/user/addr}">收货地址</a></li>
+						<li><a href="">消息通知</a></li>
+
+					</ul>
+
+					
+					
+					<h3>账户管理</h3>
+					<ul>
+						<li class="active" ><a href="" th:href="@{/user/userInfo}">个人信息</a></li>
+						<li class=""><a href="" th:href="@{/user/updatePassword}">修改密码</a></li>
+						<li class=""><a href="" th:href="@{/user/updatePayPassword}">修改支付密码</a></li>
+
+					</ul>
+				</div>
+
+				<!--主要内容body-->
+				<div class="content" th:object="${session.user}">
+					<script type="text/html" id="updateToolbar">
+						<div class="layui-btn-container">
+							<button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="updateInfo"> 修改 </button>
+						</div>
+					</script>
+					<h1 class="title">个人信息<span>请谨防钓鱼链接或诈骗电话，了解更多></span></h1>
+					<button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="updateInfo" onclick="updateInfo()"> 修改 </button>
+
+					<table style="width: 800px;height: 800px">
+						<tr>
+							<td><h2>用户名:</h2></td>
+							<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+							<td><h2 th:text="*{username}">ttt</h2></td>
+						</tr>
+						<tr>
+							<td><h2>电话:</h2></td><td></td>
+							<td><h2 th:text="*{phone}">ttt</h2></td>
+						</tr>
+						<tr>
+							<td><h2>Email:</h2></td><td></td>
+							<td><h2 th:text="*{email}">ttt</h2></td>
+						</tr>
+						<tr>
+							<td><h2>真实姓名:</h2></td><td></td>
+							<td><h2 th:text="*{realname}">ttt</h2></td>
+						</tr>
+						<tr>
+							<td><h2>性别:</h2></td><td></td>
+							<td><h2 th:text="*{gender}">ttt</h2></td>
+						</tr>
+						<tr>
+							<td><h2>生日:</h2></td><td></td>
+							<td><h2 id="birthday">ttt</h2></td>
+						</tr>
+						<tr>
+							<td><h2>身份证:</h2></td><td></td>
+							<td><h2 th:text="*{idcard}">ttt</h2></td>
+						</tr>
+						<tr>
+							<td><h2>余额:</h2></td><td></td>
+							<td><h2 th:text="*{money}">ttt</h2></td>
+						</tr>
+						<!--<tr>-->
+						<!--	<td><h2>支付密码:</h2></td><td></td>-->
+						<!--	<td><h2 th:text="*{payPassword}">ttt</h2></td>-->
+						<!--</tr>-->
+						<tr>
+							<td><h2>注册时间:</h2></td><td></td>
+							<td><h2 id="regTime">ttt</h2></td>
+						</tr>
+
+					</table>
+
+				</div>
+		</div>
+			<script>
+
+				$.ajax({
+					url:'/user/getUserInfo',
+					type: 'GET',
+					dataType:'JSON',
+					success:function (resp) {
+						console.log(resp.data.birthday)
+						$("#birthday").text(resp.data.birthday)
+						$("#regTime").text(resp.data.regTime);
+
+					}
+
+				})
+				//---------
+
+
+
+				function updateInfo() {
+					layer.open({
+						type: 2,
+						area: ['70%', '100%'],
+						content: '/user/updateInfo' ,
+
+					});
+				}
+
+
+				layui.use(['form', 'table'], function () {
+					var $ = layui.$,
+							form = layui.form,
+							table = layui.table;
+
+					table.render({
+								toolbar: '#updateToolbar',
+						}
+					);
+
+
+				})
+
+
+
+
+			</script>
+
+
+
+		
+		<!-- 底部 -->
+		<div th:replace="frag::footer" id="footer"></div>
+		
+		<!-- jQuery -->
+		<script type="text/javascript" src="../../static/js/jquery-2.1.4.js" th:src="@{/js/jquery-2.1.4.js}"></script>
+		<script th:if="false">
+			// 动态页面需要去掉
+			$("#header").load("../header.html", function(){
+				$(".logo img").attr("src", "../../static/img/logo-mi.png");
+			});
+			$("#footer").load("../footer.html");
+			
+		</script>
+		<!-- order.js -->
+		<script type="text/javascript" src="../../static/js/order.js" th:src="@{/js/order.js}"></script>
+	</body>
+</html>

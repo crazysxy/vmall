@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title>购物车</title>
+		<link rel="stylesheet" type="text/css" href="../../static/css/site.css"
+			th:href="@{/css/site.css}"/>
+		<link rel="stylesheet" type="text/css" href="../../static/css/cart.css"
+			th:href="@{/css/cart.css}"/>
+	</head>
+	<body>
+		
+		<div id="header" th:replace="user/userFrag::header('我的购物车', '温馨提示：产品是否购买成功，以最终下单为准哦，请尽快结算')"></div>
+		
+		<div class="cart">
+			<div class="container">
+				<div class="cart-title clear">
+					<div class="col col-check">
+						<input type="checkbox" class="all" id="all"/>
+						<label for="all"></label> 
+						全选
+					</div>
+					<div class="col col-img">
+						&nbsp;
+					</div>
+					<div class="col col-name">
+						商品名称
+					</div>
+					<div class="col col-price">
+						单价
+					</div>
+					<div class="col col-count">
+						数量
+					</div>
+					<div class="col col-total">
+						小计
+					</div>
+					<div class="col col-action">
+						操作
+					</div>
+					
+				</div>
+				<form id="cart-form" th:action="@{/user/order/confirm}" method="post">
+					<div class="cart-list">
+						<div class="cart-goods clear">
+							<div class="col col-check">
+								<input type="checkbox" class="all" id="all1"/>
+								<label for="all1"></label> 
+							</div>
+							<div class="col col-img">
+								<a href=""><img src="../../static/img/phone.jpg" /></a>
+							</div>
+							<div class="col col-name">
+								<a href="">Redmi Note 10 5G 6GB+128GB 竹石青</a>
+							</div>
+							<div class="col col-price">
+								1199元
+							</div>
+							<div class="col col-count">
+								<div class="count-bar">
+									<a href="javascript:;" class="">-</a>
+									<span class="count">1</span>
+									<a href="javascript:;" class="">+</a>
+								</div>
+							</div>
+							<div class="col col-total">
+								1199元
+							</div>
+							<div class="col col-action">
+								<a href="javascript:;"><i class="mi-icon icon-close"></i></a>
+							</div>
+							
+						</div>
+						
+						<div class="cart-goods clear">
+							<div class="col col-check">
+								<input type="checkbox" class="all" id="all2"/>
+								<label for="all2"></label> 
+							</div>
+							<div class="col col-img">
+								<a href=""><img src="../../static/img/phone.jpg" /></a>
+							</div>
+							<div class="col col-name">
+								<a href="">Redmi Note 10 5G 6GB+128GB 竹石青</a>
+							</div>
+							<div class="col col-price">
+								1199元
+							</div>
+							<div class="col col-count">
+								<div class="count-bar">
+									<a href="javascript:;" class="">-</a>
+									<span class="count">1</span>
+									<a href="javascript:;" class="">+</a>
+								</div>
+							</div>
+							<div class="col col-total">
+								1199元
+							</div>
+							<div class="col col-action">
+								<a href="javascript:;"><i class="mi-icon icon-close"></i></a>
+							</div>
+							
+						</div>
+						
+						<div class="cart-goods clear">
+							<div class="col col-check">
+								<input type="checkbox" class="all" id="all3"/>
+								<label for="all3"></label> 
+							</div>
+							<div class="col col-img">
+								<a href=""><img src="../../static/img/phone.jpg" /></a>
+							</div>
+							<div class="col col-name">
+								<a href="">Redmi Note 10 5G 6GB+128GB 竹石青</a>
+							</div>
+							<div class="col col-price">
+								1199元
+							</div>
+							<div class="col col-count">
+								<div class="count-bar">
+									<a href="javascript:;" class="">-</a>
+									<span class="count">1</span>
+									<a href="javascript:;" class="">+</a>
+								</div>
+							</div>
+							<div class="col col-total">
+								1199元
+							</div>
+							<div class="col col-action">
+								<a href="javascript:;"><i class="mi-icon icon-close"></i></a>
+							</div>
+							
+						</div>
+					</div>	
+					<div class="cart-bar">
+						<div class="left">
+							<a href="/index">继续购物</a>
+							<span class="cart-total">
+								共
+								<i class="all-count">2</i>
+								件商品, 已选择
+								<i class="check-count">0</i>
+								件
+							</span>
+						</div>
+						<div class="right">
+							合计:
+							<span>0</span>
+							元
+							<button type="submit">去结算</button>					
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		
+		<!-- 底部 -->
+		<div th:replace="frag::footer" id="footer"></div>
+		
+		<!-- 导入jQuery -->
+		<script type="text/javascript" src="../../static/js/jquery-2.1.4.js" th:src="@{/js/jquery-2.1.4.js}"></script>
+		<script th:if="false">
+			// 动态页面需要去掉
+			$("#header").load("header.html");
+			$("#footer").load("footer.html");
+			$("form").submit(function(){
+				window.location.href="order.html"
+				return false;
+			});
+		</script>
+		<!-- 引入购物车的js -->
+		<script type="text/javascript" th:src="@{/js/cart.js}"></script>
+	</body>
+</html>
+

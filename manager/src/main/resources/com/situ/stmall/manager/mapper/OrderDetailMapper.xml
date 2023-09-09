@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.situ.stmall.manager.mapper.OrderDetailMapper">
+    <resultMap id="resultMapOrderDetail" type="orderDetail">
+        <id column="goods_id" property="goodsId"/>
+        <result column="order_id" property="orderId"/>
+        <association column="order_id" property="order" javaType="order" select="com.situ.stmall.manager.mapper.OrderMapper.selectById"/>
+        <association column="goods_id" property="goods" javaType="goods" select="com.situ.stmall.manager.mapper.GoodsMapper.findById"/>
+    </resultMap>
+
+    <select id="selectByOid" resultMap="resultMapOrderDetail">
+        select * ,`count`*`price`as`total_price` from  order_detail where order_id = #{id}
+    </select>
+<!--    <select id="selectById" resultMap="resultMapOrderDetail">-->
+<!--        select *,`count`*`price`as`total_price` from  order_detail where id = #{id}-->
+<!--    </select>-->
+
+
+    <select id="selectById" resultMap="resultMapOrderDetail">
+        select *,`count`*`price`as`total_price` from  order_detail where id = #{id}
+    </select>
+</mapper>

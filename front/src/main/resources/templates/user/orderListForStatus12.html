@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title>订单列表</title>
+		<link rel="icon" href="../static/img/logo.png" type="image/x-icon">
+		<link rel="stylesheet" type="text/css" href="../../static/css/site.css"
+			th:href="@{/css/site.css}"/>
+		<link rel="stylesheet" type="text/css" href="../../static/css/center.css"
+			th:href="@{/css/center.css}"/>
+	</head>
+	<body>
+
+		<div id="header" th:replace="frag::header"></div>
+
+		<div class="user-center">
+			<div class="container clear">
+				<div class="crumbs">
+					<a href="../index.html">首页</a>
+					<span class="sep">/</span>
+					<a >交易订单</a>
+				</div>
+
+				<div class="menu">
+					<h3>订单中心</h3>
+					<ul>
+						<li><a href="orderList.html" th:href="@{/user/order/toList}">我的订单</a></li>
+
+					</ul>
+
+					<h3>个人中心</h3>
+					<ul>
+						<li ><a href="">我的个人中心</a></li>
+						<li><a href="addr.html" th:href="@{/user/addr}">收货地址</a></li>
+						<li><a href="">消息通知</a></li>
+
+					</ul>
+
+
+
+					<h3>账户管理</h3>
+					<ul>
+						<li class="" ><a href="" th:href="@{/user/userInfo}">个人信息</a></li>
+						<li class=""><a href="" th:href="@{/user/updatePassword}">修改密码</a></li>
+						<li class=""><a href="" th:href="@{/user/updatePayPassword}">修改支付密码</a></li>
+
+					</ul>
+				</div>
+				<div class="content">
+					<h1 class="title">我的订单<span>请谨防钓鱼链接或诈骗电话，了解更多></span></h1>
+
+					<div class="tab">
+						<ul class="clear">
+							<li ><a href="" th:href="@{/user/order/toList}">全部有效订单</a></li>
+							<li > <a href="" th:href="@{/user/order/orderListForStatus0}">待支付</a></li>
+							<li class="active"><a href="" th:href="@{/user/order/orderListForStatus12}">待收货</a></li>
+
+						</ul>
+					</div>
+
+				<div class="order-list">
+					<!-- 一个订单 -->
+					<div class="order-box order-pay">
+						<div class="order-header">
+							<div class="status status-pay">
+								等待付款
+							</div>
+						</div>
+
+						<table class="detail">
+							<thead>
+								<tr>
+									<th class="info">2021年10月24日 10:00 | 张三 | 订单号：5180504797403152| 在线支付（支付宝快捷支付）</th>
+									<th class="money">应付金额： <span>2599.00</span> 元</th>
+								</tr>
+							</thead>
+							<tbody>
+
+								<tr>
+									<td class="goods">
+										<div class="goods-box">
+											<div class="img">
+												<a href=""><img src="../../static/img/big-phone.jpg" ></a>
+											</div>
+											<div class="goods-info">
+												<p class="name"><a href="">Xiaomi Civi 8GB+128GB 闪闪黑</a></p>
+												<p class="price">2599元 x 1</p>
+											</div>
+										</div>
+									</td>
+									<td class="actions">
+										<a class="active" href="">立即付款</a>
+										<a href="">订单详情</a>
+										<a href="">联系客服</a>
+									</td>
+								</tr>
+
+								<tr>
+									<td class="goods">
+										<div class="goods-box">
+											<div class="img">
+												<a href=""><img src="../../static/img/big-phone.jpg" ></a>
+											</div>
+											<div class="goods-info">
+												<p class="name"><a href="">Xiaomi Civi 8GB+128GB 闪闪黑</a></p>
+												<p class="price">2599元 x 1</p>
+											</div>
+										</div>
+									</td>
+									<td class="actions">
+										<a class="active" href="">立即付款</a>
+										<a href="">订单详情</a>
+										<a href="">联系客服</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		</div>
+
+		<!-- 底部 -->
+		<div th:replace="frag::footer" id="footer"></div>
+
+		<!-- jQuery -->
+		<script type="text/javascript" src="../../static/js/jquery-2.1.4.js" th:src="@{/js/jquery-2.1.4.js}"></script>
+		<script th:if="false">
+			// 动态页面需要去掉
+			$("#header").load("../header.html", function(){
+				$(".logo img").attr("src", "../../static/img/logo-mi.png");
+			});
+			$("#footer").load("../footer.html");
+		</script>
+		<!-- order.js -->
+		<script type="text/javascript" src="../../static/js/order12.js" th:src="@{/js/order12.js}"></script>
+	<!--<script>-->
+	<!--	let url1;-->
+	<!--	function arrearage() {-->
+	<!--		 url1 = "/user/order/arrearage?status=0";-->
+	<!--		getOrderList();-->
+
+	<!--	}-->
+	<!--	function notReceiving() {-->
+	<!--		 url1 = "/user/order/arrearage?status=1&status=2";-->
+	<!--		getOrderList();-->
+	<!--	}-->
+	<!--	function getOrderListForStatus() {-->
+	<!--		 // url1="/user/order/list";-->
+	<!--		$.ajax({-->
+	<!--			url: url1,-->
+	<!--			type: '/user/order/list',-->
+	<!--			data: {},-->
+	<!--			dataType: 'json',-->
+	<!--			success: function(resp){-->
+	<!--				var html = "";-->
+	<!--				$.each(resp.data, function(index, item){-->
+
+	<!--					// 遍历当前订单下的详情, 统计总金额-->
+	<!--					var sum = 0;-->
+	<!--					$.each(item.orderDetails, function(i, detail){-->
+	<!--						sum += detail.price*detail.count;-->
+	<!--					});-->
+
+	<!--					html += '<div class="order-box '+(item.status<1 ? 'order-pay': '')+'">\-->
+	<!--						<div class="order-header">\-->
+	<!--							<div class="status '+(item.status<1 ? 'status-pay': '')+'">'-->
+	<!--							+ ['等待付款', '等待发货', '运送中', '已收货', '退货中', '退货中','已退货','已取消'][item.status] +-->
+	<!--							'</div>\-->
+	<!--						</div>\-->
+	<!--						\-->
+	<!--						<table class="detail">\-->
+	<!--							<thead>\-->
+	<!--								<tr>\-->
+	<!--									<th class="info">'+item.createTime+' | '+(item.address!=null?item.address.contact:'')+' | 订单号：'+item.id+'| 在线支付（支付宝快捷支付）</th>\-->
+	<!--									<th class="money">应付金额： <span>'+sum+'</span> 元</th>\-->
+	<!--								</tr>\-->
+	<!--							</thead>\-->
+	<!--							<tbody>'-->
+	<!--					$.each(item.orderDetails, function(i, detail){-->
+	<!--						html += '<tr>\-->
+	<!--									<td class="goods">\-->
+	<!--										<div class="goods-box">\-->
+	<!--											<div class="img">\-->
+	<!--												<a href=""><img src="/upload/'+detail.goods.pics[0].url+'" ></a>\-->
+	<!--											</div>\-->
+	<!--											<div class="goods-info">\-->
+	<!--												<p class="name"><a href="/goods?id='+detail.goods.id+'">'+detail.goods.name+' '+detail.goods.version+' '+detail.goods.color+'</a></p>\-->
+	<!--												<p class="price">'+detail.price+'元 x '+detail.count+'</p>\-->
+	<!--											</div>\-->
+	<!--										</div>\-->
+	<!--									</td>\-->
+	<!--									<td class="actions">'+-->
+	<!--								( item.status == 0 ? '<a class="active" href="/user/order/pay?orderId='+item.id+'">立即付款</a>' : '') +-->
+	<!--								( item.status == 0||item.status == 1 ||item.status==2 ? '<a class="" style="background: #1e9fff;color: #F25807"  href="/user/order/cancel?orderId='+item.id+'">取消订单</a>' : '')+-->
+	<!--								( item.status == 1 ||item.status==2 ? '<a class="" style="background: #dee06e;color: #F25807"  href="/user/order/updateStatus?orderId='+item.id+'&status=5' + ''+' ">退货</a>' : '')+-->
+	<!--								( item.status == 1 ? '<a class="" href="">已支付</a>' : '')+-->
+	<!--								( item.status == 2 ? '<a class="" href="">已发货</a>' : '')+-->
+	<!--								( item.status == 3 ? '<a class="" href="">已收货</a>' : '')+-->
+	<!--								( item.status == 5 ? '<a class="" href="/user/order/updateStatus?orderId='+item.id+'&status=4' + ''+' ">申请退款</a>' : '')+-->
+	<!--								( item.status == 4 ? '<a class="" href="">退款中</a>' : '')+-->
+	<!--								( item.status == 5 ? '<a class="" href="">退货中</a>' : '')+-->
+	<!--								( item.status == 6 ? '<a class="" href="">已退款</a>' : '')+-->
+	<!--								( item.status == 7 ? '<a class="" href="">订单已取消</a>' : '')+-->
+	<!--								'<a href="">订单详情</a>\-->
+    <!--                                \-->
+    <!--                            </td>\-->
+    <!--                        </tr>'-->
+	<!--					});-->
+
+	<!--					html +=	'</tbody>\-->
+	<!--						</table>\-->
+	<!--					</div>';-->
+	<!--				});-->
+
+	<!--				$('.order-list').html(html);-->
+	<!--			},-->
+	<!--			error: function(){-->
+
+	<!--			}-->
+	<!--		});-->
+	<!--	}-->
+
+
+
+
+	<!--	function getOrderList(){-->
+	<!--		// ajax-->
+	<!--		$.ajax({-->
+	<!--			url: url1,-->
+	<!--			type: 'get',-->
+	<!--			data: {},-->
+	<!--			dataType: 'json',-->
+	<!--			success: function(resp){-->
+	<!--				var html = "";-->
+	<!--				$.each(resp.data, function(index, item){-->
+
+	<!--					// 遍历当前订单下的详情, 统计总金额-->
+	<!--					var sum = 0;-->
+	<!--					$.each(item.orderDetails, function(i, detail){-->
+	<!--						sum += detail.price*detail.count;-->
+	<!--					});-->
+
+	<!--					html += '<div class="order-box '+(item.status<1 ? 'order-pay': '')+'">\-->
+	<!--						<div class="order-header">\-->
+	<!--							<div class="status '+(item.status<1 ? 'status-pay': '')+'">'-->
+	<!--							+ ['等待付款', '等待发货', '运送中', '已收货', '退货中', '退货中','已退货','已取消'][item.status] +-->
+	<!--							'</div>\-->
+	<!--						</div>\-->
+	<!--						\-->
+	<!--						<table class="detail">\-->
+	<!--							<thead>\-->
+	<!--								<tr>\-->
+	<!--									<th class="info">'+item.createTime+' | '+(item.address!=null?item.address.contact:'')+' | 订单号：'+item.id+'| 在线支付（支付宝快捷支付）</th>\-->
+	<!--									<th class="money">应付金额： <span>'+sum+'</span> 元</th>\-->
+	<!--								</tr>\-->
+	<!--							</thead>\-->
+	<!--							<tbody>'-->
+	<!--					$.each(item.orderDetails, function(i, detail){-->
+	<!--						html += '<tr>\-->
+	<!--									<td class="goods">\-->
+	<!--										<div class="goods-box">\-->
+	<!--											<div class="img">\-->
+	<!--												<a href=""><img src="/upload/'+detail.goods.pics[0].url+'" ></a>\-->
+	<!--											</div>\-->
+	<!--											<div class="goods-info">\-->
+	<!--												<p class="name"><a href="/goods?id='+detail.goods.id+'">'+detail.goods.name+' '+detail.goods.version+' '+detail.goods.color+'</a></p>\-->
+	<!--												<p class="price">'+detail.price+'元 x '+detail.count+'</p>\-->
+	<!--											</div>\-->
+	<!--										</div>\-->
+	<!--									</td>\-->
+	<!--									<td class="actions">'+-->
+	<!--								( item.status == 0 ? '<a class="active" href="/user/order/pay?orderId='+item.id+'">立即付款</a>' : '') +-->
+	<!--								( item.status == 0||item.status == 1 ||item.status==2 ? '<a class="" style="background: #1e9fff;color: #F25807"  href="/user/order/cancel?orderId='+item.id+'">取消订单</a>' : '')+-->
+	<!--								( item.status == 1 ||item.status==2 ? '<a class="" style="background: #dee06e;color: #F25807"  href="/user/order/updateStatus?orderId='+item.id+'&status=5' + ''+' ">退货</a>' : '')+-->
+	<!--								( item.status == 1 ? '<a class="" href="">已支付</a>' : '')+-->
+	<!--								( item.status == 2 ? '<a class="" href="">已发货</a>' : '')+-->
+	<!--								( item.status == 3 ? '<a class="" href="">已收货</a>' : '')+-->
+	<!--								( item.status == 5 ? '<a class="" href="/user/order/updateStatus?orderId='+item.id+'&status=4' + ''+' ">申请退款</a>' : '')+-->
+	<!--								( item.status == 4 ? '<a class="" href="">退款中</a>' : '')+-->
+	<!--								( item.status == 5 ? '<a class="" href="">退货中</a>' : '')+-->
+	<!--								( item.status == 6 ? '<a class="" href="">已退款</a>' : '')+-->
+	<!--								( item.status == 7 ? '<a class="" href="">订单已取消</a>' : '')+-->
+	<!--								'<a href="">订单详情</a>\-->
+    <!--                                \-->
+    <!--                            </td>\-->
+    <!--                        </tr>'-->
+	<!--					});-->
+
+	<!--					html +=	'</tbody>\-->
+	<!--						</table>\-->
+	<!--					</div>';-->
+	<!--				});-->
+
+	<!--				$('.order-list').html(html);-->
+	<!--			},-->
+	<!--			error: function(){-->
+
+	<!--			}-->
+	<!--		});-->
+	<!--	}-->
+	<!--</script>-->
+
+	</body>
+</html>

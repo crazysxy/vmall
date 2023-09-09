@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title>修改地址</title>
+		<link rel="stylesheet" type="text/css" href="../../static/css/site.css"
+			th:href="@{/css/site.css}"/>
+		<link rel="stylesheet" type="text/css" href="../../static/css/center.css"
+			th:href="@{/css/center.css}"/>
+		<link rel="stylesheet" type="text/css" href="../../static/layui/css/layui.css"
+			  th:href="@{/layui/css/layui.css}"/>
+
+		<script type="text/javascript" src="../../static/layui/layui.js" th:src="@{/layui/layui.js}"></script>
+		<script type="text/javascript" src="../../static/layui/layui.js" th:src="@{/js/jquery-2.1.4.js}"></script>
+		<script type="text/javascript" src="../../static/layui/jquery.js" th:src="@{/js/jquery.js}"></script>
+		<script type="text/javascript" src="../../static/layui/distpicker.js" th:src="@{/js/distpicker.js}"></script>
+
+
+	</head>
+	<body>
+
+		<div class="user-center">
+
+
+				<!--主要内容body-->
+				<div class="content" th:object="${session.user}">
+					<h2 id="insertMsg" style="color: red"></h2>
+
+					<h1 class="title">修改地址</h1>
+					<div class="error" th:text="${session.updInfoMsg}">123</div>
+					<form action="/user/addr/insert" method="post" id="updForm" th:object="${session.address}">
+						<input type="hidden" name="id" th:value="${session.user.id}">
+						<div class="layui-form-item" data-toggle="distpicker" data-autoselect="3" style="height: 500px;width: 450px">
+							<table style="width: 800px;height: 500px">
+								<tr>
+									<td><h2>联系人:</h2></td>
+									<td>
+										<input class="layui-input" type="text" name="contact" th:value="*{contact}">
+									</td>
+								</tr>
+								<tr>
+									<td><h2>电话:</h2></td>
+									<td>
+										<input  class="layui-input"type="text" name="phone"th:value="*{phone}" >
+									</td>
+								</tr>
+								<tr>
+									<td><h2>地区:</h2></td>
+									<td>
+										<div class="layui-input-inline">
+											<select  class="layui-select" id="province" style="width: 150px"  name="province"  v-model="work.province"></select>
+										</div>
+										<div class="layui-input-inline">
+											<select class="layui-select" id="city" style="width: 150px" name="city" v-model="work.city"></select>
+										</div>
+										<div class="layui-input-inline">
+											<select class="layui-select" id="county" style="width: 150px" name="county" v-model="work.area"></select>
+										</div>
+
+								</tr>
+
+								<tr>
+									<td><h2>街道:</h2></td>
+									<td>
+										<input class="layui-input" type="text" name="town" th:value="*{town}">
+									</td>
+								</tr>
+								<tr>
+									<td><h2>详细地址:</h2></td>
+									<td>
+										<input class="layui-input" type="text" name="detail" th:value="*{detail}">
+									</td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" name="status" value="1" >默认地址</td>
+
+
+								</tr>
+								<tr>
+									<td>
+										<a type="button" id="updBtn" class="layui-btn layui-btn-normal" onclick="update()" >修改</a>
+									</td>
+								</tr>
+
+
+
+							</table>
+							<!--<button type="submit">添加</button>-->
+						</div>
+
+
+					</form>
+
+
+
+				</div>
+
+		</div>
+
+		<!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>-->
+		<!--<script src="https://cdn.bootcss.com/distpicker/2.0.1/distpicker.js"></script>-->
+
+		<script>
+			getAddrInfo();
+			function getAddrInfo() {
+				let id=sessionStorage.getItem("id");
+
+				$.ajax({
+					url:'/user/addr/findAddrInfo',
+					dataType: 'Json',
+					data:{id:id},
+					type:'Get',
+					success:function (resp) {
+						console.log(resp);
+						$("#province").find('option[data-text="'+resp.data.province+'"]').attr("selected","selected").trigger('change');
+						$("#city").find('option[data-text="'+resp.data.city+'"]').attr("selected","selected").trigger('change');
+						$("#county").find('option[data-text="'+resp.data.county+'"]').attr("selected","selected").trigger('change');
+
+					}
+
+				})
+			}
+
+
+
+
+			layui.use(['form','laytpl','upload', 'element', 'layer','laydate','table'], function() {
+				var laydate = layui.laydate,
+						$ = layui.$,
+						form = layui.form,
+						laytpl = layui.laytpl,
+						upload = layui.upload,
+						element = layui.element,
+						layer = layui.layer,
+						table = layui.table;
+
+				//日期时间选择器
+				laydate.render({
+					elem: '#test5'
+					,type: 'datetime'
+				});
+
+				// form.on('select(selectAddr)',function () {
+				// 	console.log("1111");
+				// 	table.render();
+				//
+				// });
+				// table.render();
+
+			})
+
+
+
+			// $('#updBtn').onclick(upd());
+			function update() {
+				$.ajax({
+					url:'/user/addr/update',
+					dataType: "JSON",
+					type:"post",
+					data:$("#updForm").serialize(),
+					success:function (resp) {
+						if (resp.code==10000){
+							parent.layer.closeAll('iframe');
+							parent.window.location.href="/user/addr";
+						}else {
+							$('#insertMsg').text(resp.msg)
+						}
+					}
+				})
+
+			}
+
+		</script>
+
+
+
+
+	</body>
+</html>

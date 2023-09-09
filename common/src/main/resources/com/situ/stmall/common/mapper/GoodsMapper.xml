@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.situ.stmall.common.mapper.GoodsMapper">
+
+   <resultMap id="resultMapGoods" type="goods">
+       <id column="id" property="id"/>
+       <result column="category_id" property="categoryId"/>
+       <association column="category_id" property="category" javaType="category" select="com.situ.stmall.common.mapper.CategoryMapper.findById"/>
+       <collection column="id" property="pics" ofType="goodsPic" select="com.situ.stmall.common.mapper.GoodsPicMapper.selectByGid"/>
+   </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id" >
+    insert into goods (`name`,`dscp`,`price`,`mark_price`,`color`,`version`,`count`,`content`,`recom`,`category_id`,`status`)
+    values(#{name},#{dscp},#{price},#{markPrice},#{color},#{version},#{count},#{content},#{recom},#{categoryId},#{status})
+    </insert>
+
+    <update id="update" parameterType="goods">
+        update goods
+        <set>
+            <if test="name!=null and name.length>0">
+                `name`=#{name},
+            </if>
+            <if test="dscp!=null and dscp.length>0">
+                `dscp`=#{dscp},
+            </if>
+            <if test="price!=null">
+                `price`=#{price},
+            </if>
+            <if test="markPrice!=null">
+                `mark_price`=#{markPrice},
+            </if>
+            <if test="color!=null and color.length>0">
+                `color`=#{color},
+            </if>
+            <if test="version!=null and version.length>0">
+                `version`=#{version},
+            </if>
+            <if test="count!=null">
+                `count`=#{count},
+            </if>
+            <if test="content!=null and content.length>0">
+                `content`=#{content},
+            </if>
+            <if test="recom!=null">
+                `recom`=#{recom},
+            </if>
+            <if test="categoryId!=null">
+                `category_id`=#{categoryId},
+            </if>
+            <if test="status!=null">
+                `status`=#{status},
+            </if>
+
+        </set>
+            where id = #{id}
+
+    </update>
+    <delete id="delete">
+        delete from goods where id=#{id}
+    </delete>
+
+<!--    <update id="updateStatus">-->
+<!--        update goods set status = 1 where id = #{id}-->
+<!--    </update>-->
+
+    <select id="selectByCondition" resultMap="resultMapGoods">
+        select * from goods
+    <where>
+        <if test="null!=goods and goods.name!=null and goods.name.length>0">
+            AND `name` like '%${goods.name}%'
+--             '%${goods.name}%'
+        </if>
+        <if test="null!=goods and goods.dscp!=null and goods.dscp.length>0">
+            AND  `dscp`like '%${goods.dscp}%'
+        </if>
+        <if test="minPrice!=null">
+            AND `price` >= #{minPrice}
+        </if>
+        <if test="maxPrice!=null">
+            AND `price` &lt;= #{maxPrice}
+        </if>
+
+<!--        <if test="null!=goods and goods.color!=null and color.length>0">-->
+<!--            AND  `color`=#{goods.color}-->
+<!--        </if>-->
+
+        <if test="null!=goods and goods.categoryId!=null">
+            AND `category_id`=#{goods.categoryId}
+        </if>
+        <if test="null!=goods and goods.recom!=null">
+            AND  `recom`=#{goods.recom}
+        </if>
+        <if test="null!=goods and goods.status!=null">
+            AND `status`=#{goods.status}
+        </if>
+
+    </where>
+
+    </select>
+
+    <select id="findById" resultMap="resultMapGoods">
+        select * from  goods where id =#{id}
+    </select>
+    <select id="findByName" resultMap="resultMapGoods">
+        select * from  goods where name =#{name}
+    </select>
+
+    <select id="findByCategory" resultMap="resultMapGoods">
+        select * from goods where category_id = #{categoryId}
+    </select>
+    <select id="findByCategoryAndRecom"  resultMap="resultMapGoods">
+        select * from goods where category_id = #{categoryId} and `recom`= 1
+    </select>
+</mapper>

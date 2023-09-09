@@ -1,0 +1,296 @@
+/* 清除所有 */
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+/* 通用样式 */
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: white;
+}
+
+/* 通过浮动 */
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.clear::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+/* 中间区域 */
+.container {
+	width: 1226px;
+	margin: auto;
+}
+
+/* 下拉菜单 */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* 头部 */
+.nav {
+	height: 40px;
+	line-height: 40px;
+	background-color: #333333;
+	font-size: 12px;
+}
+
+.nav a {
+	color: #b0b0b0;
+	font-size: 12px;
+}
+
+.nav a:hover {
+	color: #FFF;
+}
+
+.nav ul li {
+	float: left;
+}
+
+.nav ul li::before {
+	content: "|";
+	color: #424242;
+	margin: 0px 5px;
+}
+
+.nav ul li:first-child::before {
+	display: none;
+}
+.nav .cart{
+	padding: 0px 15px;
+	margin-left: 5px;
+}
+.nav .cart::before{
+	content: "";
+}
+.nav .cart:hover{
+	background-color: #FFFFFF;
+}
+.nav .cart:hover a{
+	color: #ff6700;
+}
+.nav .cart .dropdown-content{
+	background-color: #f9f9f9;
+	right: 0px;
+	min-width: 316px;
+	min-height: 60px;
+	color: #424242;
+}
+
+/* 个人中心的下拉 */
+.nav .user a{
+	display: inline-block;
+	width: 110px;
+	text-align: center;
+}
+.nav .user{
+	position: relative;
+}
+.nav .user:hover{
+	background-color: #FFF;
+}
+.nav .user a:hover{
+	color: #FF6700;
+}
+.nav .user .user-menu{
+	position: absolute;
+	line-height: 30px;
+	background-color: #FFF;
+	box-shadow: 0px 2px 10px rgb(0 0 0 /15%);
+	z-index: 1;
+	/* 过渡动画 */
+	transition: all 0.5s ease; 
+	overflow: hidden;/* 内部元素超出父元素的边界, 将会被隐藏 */
+	height: 0px;
+}
+
+.nav .user:hover .user-menu{
+	height: 156px;
+}
+
+.site-header .logo{
+	margin-top: 22px;
+}
+
+.site-header .logo img{
+	width: 56px;
+	height: 56px;
+}
+
+.site-header ul li {
+	float: left;
+}
+.site-header .menu{
+	padding-top: 12px;
+	padding-left: 172px;
+}
+.site-header .menu a{
+	display: block;
+	color: #333333;
+	font-size: 16px;
+	padding: 26px 10px 38px;
+}
+.site-header a:hover{
+	color: #FF6700;
+}
+.site-header .search{
+	padding-top: 25px;
+}
+.site-header input{
+	display: block;
+	outline-style: none ;
+	width: 223px;
+	height: 48px;
+	line-height: 48px;
+	border: 1px solid #e0e0e0;
+	padding: 0px 10px;
+	font-size: 14px;
+}
+.site-header input:focus{
+	border-color: #FF6700;
+}
+.site-header input:focus+button{
+	border-color: #FF6700;
+}
+.site-header button{
+	/* display: block; */
+	background-color: #FFF;
+	outline-style: none ;
+	width: 52px;
+	height: 50px;
+	line-height: 50px;
+	border: 1px solid #e0e0e0;
+	border-left: 0px;
+	padding: 0px 16px;
+	text-align: center;
+}
+.site-header button i{
+	font-size: 20px;
+}
+.site-header button:hover{
+	background-color: #FF6700;
+	border: 1px solid #FF6700;
+}
+
+/* 底部 */
+.site-footer .footer-service{
+	padding: 27px 0px;
+}
+.site-footer .footer-service ul li{
+	float: left;
+	width: 19.8%;
+	height: 25px;
+	font-size: 16px;
+	line-height: 25px;
+	text-align: center;
+	border-left: 1px solid #e0e0e0;
+}
+.site-footer .footer-service ul li:first-child{
+	border-left: 0;
+}
+.site-footer .footer-service a{
+	color: #616161;
+}
+.site-footer .footer-service a:hover{
+	color: #FF6700;
+}
+
+/* 字体图标 */
+@font-face {
+	font-family: mi-icon;
+	src: url(../font/iconfont.eot?v=256);
+	src: url(../font/iconfont.eot?v=256#iefix) format('embedded-opentype'), url(../font/iconfont.woff2?v=256) format('woff2'), url(../font/iconfont.woff?v=256) format('woff'), url(../font/iconfont.ttf?v=256) format('truetype'), url(../font/iconfont.svg?v=256#layui-icon) format('svg')
+}
+
+.mi-icon {
+	font-family: mi-icon !important;
+	/* font-size: 16px; */
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale
+}
+
+.icon-cart::before {
+	content: "\e657";
+}
+.icon-search::before {
+	content: "\e615";
+}
+.icon-left::before {
+	content: "\e603";
+}
+.icon-right::before {
+	content: "\e602";
+}
+.icon-up::before {
+	content: "\e619";
+}
+.icon-down::before {
+	content: "\e61a";
+}
+.icon-util::before {
+	content: "\e631";
+}
+.icon-location::before {
+	content: "\e715";
+}
+.icon-log::before {
+	content: "\e60e";
+}
+.icon-diamond::before {
+	content: "\e735";
+}
+.icon-heart::before {
+	content: "\e68c";
+}
+
+
+.icon-wechat::before {
+	content: "\e677";
+	color: #50B674;
+	font-size: 46px;
+}
+.icon-qq::before {
+	content: "\e676";
+	color: #18ACFC;
+	font-size: 46px;
+}
+.icon-weibo::before {
+	content: "\e675";
+	color: #EA5D5C;
+	font-size: 46px;
+}
+.icon-close::before{
+	content: "\1006";
+}
+.icon-ok::before{
+	content: "\e605";
+}
+.icon-add::before{
+	content: "\e654";
+}
+

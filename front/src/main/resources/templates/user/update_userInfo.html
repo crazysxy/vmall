@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title>修改个人信息</title>
+		<link rel="icon" href="../static/img/logo.png" type="image/x-icon">
+		<link rel="stylesheet" type="text/css" href="../../static/css/site.css"
+			th:href="@{/css/site.css}"/>
+		<link rel="stylesheet" type="text/css" href="../../static/css/center.css"
+			th:href="@{/css/center.css}"/>
+		<link rel="stylesheet" type="text/css" href="../../static/layui/css/layui.css"
+			  th:href="@{/layui/css/layui.css}"/>
+
+		<script type="text/javascript" src="../../static/layui/layui.js" th:src="@{/layui/layui.js}"></script>
+		<script type="text/javascript" src="../../static/layui/layui.js" th:src="@{/js/jquery-2.1.4.js}"></script>
+
+	</head>
+	<body>
+
+		<div class="user-center">
+			<div class="container clear">
+
+				<!--主要内容body-->
+				<div class="content" th:object="${session.user}">
+
+					<h1 class="title">修改个人信息</h1>
+					<div class="error" th:text="${session.updInfoMsg}">123</div>
+					<form action="/user/updateUserInfo" method="post" id="updForm">
+						<input type="hidden" name="id" th:value="*{id}">
+						<div class="layui-form-item">
+							<!--<span id="msg"></span>-->
+							<table style="width: 800px;height: 800px">
+								<tr>
+									<td><h2>用户名:</h2></td>
+									<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+									<td><input class="layui-input" name="username" th:value="*{username}"/></td>
+								</tr>
+								<tr>
+									<td><h2>电话:</h2></td><td></td>
+									<td><input name="phone"class="layui-input" th:value="*{phone}"/></td>
+								</tr>
+								<tr>
+									<td><h2>Email:</h2></td><td></td>
+									<td><input name="email"class="layui-input" th:value="*{email}"/></td>
+								</tr>
+								<tr>
+									<td><h2>真实姓名:</h2></td><td></td>
+									<td><input name="realname"class="layui-input" th:value="*{realname}"/></td>
+								</tr>
+								<tr>
+									<td><h2>性别:</h2></td><td></td>
+									<td><input name="gender"class="layui-input" th:value="*{gender}"/></td>
+								</tr>
+								<tr>
+									<td><h2>生日:</h2></td><td></td>
+
+									<td><input id="test5" class="layui-input" name="birthday" /></td>
+								</tr>
+								<tr>
+									<td><h2>身份证:</h2></td><td></td>
+									<td><input name="idcard"class="layui-input" th:value="*{idcard}"/></td>
+								</tr>
+								<tr>
+									<td><h2>余额:</h2></td><td></td>
+									<td><input name="money"class="layui-input" th:value="*{money}"/></td>
+								</tr>
+								<tr>
+									<td><h2>注册时间:</h2></td><td></td>
+									<!--<td><h2 id="regTime" th:text="*{regTime}"/></td>-->
+									<td><h2 id="regTime"/></td>
+								</tr>
+
+
+							</table>
+						</div>
+
+						<a type="button" id="updBtn" class="layui-btn layui-btn-normal" onclick="upd()" >修改</a>
+					</form>
+
+
+
+				</div>
+			</div>
+		</div>
+
+
+		<script>
+
+			// $('#updBtn').onclick(function () {
+			// 	$.ajax({
+			// 		url:'/user/updateUserInfo',
+			// 		dataType: "JSON",
+			// 		type:"GET",
+			// 		data:$("#updForm").serialize(),
+			// 		success:function (resp) {
+			// 			parent.layer.closeAll('iframe');
+			//
+			// 		}
+			// 	})
+			//
+			// })
+
+			layui.use(['form','laytpl','upload', 'element', 'layer','laydate'], function() {
+				var laydate = layui.laydate,
+						$ = layui.$,
+						form = layui.form,
+						laytpl = layui.laytpl,
+						upload = layui.upload,
+						element = layui.element,
+						layer = layui.layer;
+
+
+
+				//日期时间选择器
+				laydate.render({
+					elem: '#test5'
+					,type: 'datetime'
+				});
+
+			})
+
+
+
+			$.ajax({
+				url:'/user/getUserInfo',
+				type: 'GET',
+				dataType:'JSON',
+				success:function (resp) {
+					console.log(resp.data.birthday)
+					$("input[name='birthday']").val(resp.data.birthday)
+					$("#regTime").text(resp.data.regTime);
+				}
+
+			})
+
+			// $('#updBtn').onclick(upd());
+			function upd() {
+				$.ajax({
+					url:'/user/updateUserInfo',
+					dataType: "JSON",
+					type:"post",
+					data:$("#updForm").serialize(),
+					success:function (resp) {
+						if (resp.code==10000){
+							parent.layer.closeAll('iframe');
+							parent.window.location.href="/user/userInfo";
+						}else {
+							$('#msg').text(resp.msg)
+						}
+
+
+					}
+				})
+
+			}
+
+		</script>
+
+
+
+
+	</body>
+</html>

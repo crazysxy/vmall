@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.situ.stmall.manager.mapper.DrawMapper">
+    <select id="getGoodsCount" resultType="java.util.Map">
+-- todo parentid 改成名字
+        SELECT c.`parent_id` as name ,count(1) as count FROM goods g,category  c where g.category_id=c.id GROUP BY c.parent_id
+    </select>
+    <select id="getGoodsStatus" resultType="java.util.Map">
+
+    </select>
+</mapper>

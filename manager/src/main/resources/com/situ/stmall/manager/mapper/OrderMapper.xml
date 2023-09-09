@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.situ.stmall.manager.mapper.OrderMapper">
+
+
+    <resultMap id="resultMapOrder" type="order">
+        <id column="id" property="id"/>
+        <result column="addr_id" property="addrId"/>
+        <result column="user_id" property="userId"/>
+
+        <association column="user_id" property="userName" javaType="string" select="com.situ.stmall.manager.mapper.UserMapper.findName"/>
+        <association column="addr_id" property="addr" javaType="category" select="com.situ.stmall.manager.mapper.AddrMapper.selectById"/>
+<!--        <collection column="id" property="orderDetailList" ofType="orderDetail" select="com.situ.stmall.manager.mapper.OrderDetailMapper.selectByOid"/>-->
+    </resultMap>
+
+
+    <insert id="insert" parameterType="order">
+    insert into order (creat_time,user_id,addr_id,status)
+    values(#{creatTime},#{userId},#{addrId},#{status});
+
+    </insert>
+
+    <update id="updStatus">
+        update `order` set status = 0 where id=#{id}
+    </update>
+
+    <update id="update" parameterType="order">
+        update `order`
+    <set>
+        <if test="addrId!=null">
+            addr_id =#{addrId},
+        </if>
+        <if test="status!=null">
+            status =#{status},
+        </if>
+    </set>
+            where id= #{id}
+    </update>
+
+    <select id="selectById" resultMap="resultMapOrder">
+        select * from  `order` where id =#{id}
+
+    </select>
+
+    <select id="selectAll" resultMap="resultMapOrder">
+        select * from `order`
+    </select>
+</mapper>

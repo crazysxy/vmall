@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>修改个人信息</title>
+		<link rel="stylesheet" type="text/css" href="../../static/css/site.css"
+			/>
+		<link rel="stylesheet" href="../layui/css/layui.css">
+
+		<script src="/layui/layui.js"></script>
+		<script src="/js/jquery-3.4.1.min.js"></script>
+
+		<!--<script type="text/javascript" src="../../static/layui/layui.js" th:src="@{/layui/layui.js}"></script>-->
+		<!--<script type="text/javascript" src="../../static/layui/layui.js" th:src="@{/js/jquery-2.1.4.js}"></script>-->
+
+	</head>
+	<body>
+
+		<div class="user-center" style="width: 300px;height: 100px">
+			<div class="container clear">
+
+				<!--主要内容body-->
+				<div class="content" >
+
+					<h1 class="title">修改管理员信息</h1>
+					<form action="/updatePassword" method="post" id="updForm">
+						<div class="layui-form-item">
+							<table style="width: 400px;height: 400px">
+								<tr>
+									<td><h2>用户名:</h2></td><td></td>
+									<td><input name="username"class="layui-input" /></td>
+								</tr>
+								<tr>
+									<td><h2>电话:</h2></td><td></td>
+									<td><input name="phone"class="layui-input" /></td>
+								</tr>
+								<tr>
+									<td><h2>电子邮箱:</h2></td><td></td>
+									<td><input name="email" class="layui-input" /></td>
+								</tr>
+								<tr>
+									<td><h2>真实姓名:</h2></td><td></td>
+									<td><input name="realname" class="layui-input" /></td>
+								</tr>
+
+								<tr>
+									<span id="msg"></span>
+								</tr>
+
+
+							</table>
+						</div>
+
+						<a type="button" id="updBtn" class="layui-btn layui-btn-normal" onclick="upd()" >修改</a>
+					</form>
+
+
+
+				</div>
+			</div>
+		</div>
+
+
+		<script>
+
+			// $('#updBtn').onclick(function () {
+			// 	$.ajax({
+			// 		url:'/user/updateUserInfo',
+			// 		dataType: "JSON",
+			// 		type:"GET",
+			// 		data:$("#updForm").serialize(),
+			// 		success:function (resp) {
+			// 			parent.layer.closeAll('iframe');
+			//
+			// 		}
+			// 	})
+			//
+			// })
+
+			layui.use(['form','laytpl','upload', 'element', 'layer','laydate'], function() {
+				var laydate = layui.laydate,
+						$ = layui.$,
+						form = layui.form,
+						laytpl = layui.laytpl,
+						upload = layui.upload,
+						element = layui.element,
+						layer = layui.layer;
+
+
+			})
+			$(function () {
+				$.ajax({
+					url:'/getInfo',
+					dataType: "JSON",
+					type:"get",
+					success:function (resp){
+						if(resp.code==10000){
+							$("input[name=username]").val(resp.data.username);
+							$("input[name=phone]").val(resp.data.phone);
+							$("input[name=email]").val(resp.data.email);
+							$("input[name=realname]").val(resp.data.realname);
+						}
+
+					}
+
+				})
+
+			});
+
+
+
+			// $('#updBtn').onclick(upd());
+			function upd() {
+				$.ajax({
+					url:'/updateInfo',
+					dataType: "JSON",
+					type:"put",
+					data:$("#updForm").serialize(),
+					success:function (resp) {
+						if (resp.code==10000){
+							parent.layer.closeAll('iframe');
+							parent.window.location.href="/index.html";
+						}
+						else {
+							$('#msg').text(resp.msg);
+						}
+					}
+				})
+
+			}
+
+		</script>
+
+
+
+
+	</body>
+</html>

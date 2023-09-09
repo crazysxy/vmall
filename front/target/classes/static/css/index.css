@@ -1,0 +1,278 @@
+/* 轮播图区域 */
+.swiper .container {
+	position: relative;
+}
+
+.swiper .goods-sorts {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	background: rgba(105, 101, 101, .6);
+	width: 234px;
+	height: 460px;
+}
+
+.swiper .goods-sorts>ul {
+	padding: 20px 0px;
+}
+
+.swiper .goods-sorts>ul>li:hover {
+	background-color: #FF6700;
+}
+
+.swiper .goods-sorts>ul>li>a {
+	display: block;
+	height: 42px;
+	line-height: 42px;
+	padding-left: 30px;
+	font-size: 14px;
+	position: relative;
+}
+
+.swiper .goods-sorts>ul>li>a:hover {
+	background-color: #FF6700;
+}
+
+.swiper .goods-sorts .icon-right {
+	position: absolute;
+	top: 12px;
+	right: 20px;
+	font-size: 16px;
+	line-height: 20px;
+	color: #e0e0e0;
+}
+
+.swiper .goods-sorts>ul>li .children {
+	display: none;
+	position: absolute;
+	left: 234px;
+	top: 0px;
+	background: #fff;
+	border: 1px solid #e0e0e0;
+	height: 458px;
+	width: 992px;
+	box-shadow: 0 8px 16px rgb(0 0 0 / 18%);
+}
+
+.swiper .goods-sorts>ul>li:hover .children {
+	display: block;
+}
+
+.swiper .goods-sorts>ul>li .children ul li {
+	width: 248px;
+	height: 76px;
+}
+
+.swiper .goods-sorts>ul>li .children img {
+	float: left;
+	margin-right: 12px;
+	width: 40px;
+	height: 40px;
+}
+
+.swiper .goods-sorts>ul>li .children span {
+	float: left;
+	width: 156px;
+	line-height: 40px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.swiper .goods-sorts>ul>li .children a {
+	display: block;
+	padding: 18px 20px;
+	line-height: 40px;
+	color: #333;
+	font-size: 14px;
+}
+
+.swiper .goods-sorts>ul>li .children a:hover {
+	color: #FF6700;
+}
+
+.ad-1 {
+	margin-top: 14px;
+}
+
+.ad-1 .service {
+	width: 228px;
+	background-color: #5f5750;
+	text-align: center;
+	padding: 3px;
+}
+
+.ad-1 .service a {
+	font-size: 12px;
+	color: #fff;
+	opacity: .7;
+	padding-top: 18px;
+	display: block;
+}
+
+.ad-1 .service a:hover {
+	opacity: 1;
+}
+
+.ad-1 .service a:hover img {
+	opacity: 1;
+}
+
+.ad-1 .service img {
+	display: block;
+	width: 24px;
+	height: 24px;
+	margin: 0 auto 4px;
+	opacity: .7;
+}
+
+.ad-1 .service li {
+	position: relative;
+	float: left;
+	width: 76px;
+	height: 82px;
+}
+.ad-1 .service a::before {
+	top: 6px;
+	left: -1px;
+	width: 1px;
+	height: 64px;
+	position: absolute;
+	content: "";
+	background: #665e57;
+}
+.ad-1 .service li::before {
+	top: -1px;
+	left: 6px;
+	width: 64px;
+	height: 1px;
+	position: absolute;
+	content: "";
+	background: #665e57;
+}
+.ad-1 .ad li{
+	float: left;
+	padding-left: 15px;
+}
+.ad-1 .ad li:first-child{
+	padding-left: 14px;
+}
+.ad-1 .ad img{
+	width: 316px;
+	height: 169px;
+}
+
+
+/* 推荐 */
+.recommend{
+	margin-top: 22px;
+	background-color: #f5f5f5;
+}
+
+.recommend .banner{
+	padding: 22px 0px;
+}
+.recommend .banner img{
+	display: block;
+	width: 1226px;
+	height: 120px;
+}
+
+.recommend .brick{
+	margin-bottom: 12px;
+}
+.recommend .brick .brick-head .title{
+	margin: 0;
+	font-size: 22px;
+	font-weight: 200;
+	line-height: 58px;
+	color: #333;
+}
+.recommend .brick .brick-head .more{
+	font-weight: 200;
+	line-height: 58px;
+	font-size: 16px;
+}
+.recommend  .brick .brick-head .more a{
+	color: #424242;
+}
+.recommend  .brick .brick-head .more a:hover{
+	color: #FF6700;
+}
+.recommend  .brick .brick-head .more a:hover i{
+	background-color: #FF6700;
+}
+.recommend  .brick .brick-head .more .mi-icon{
+	background-color: #b0b0b0;
+	padding: 4px;
+	font-size: 12px;
+	line-height: 12px;
+	margin-left: 4px;
+	vertical-align: 3px;
+	border-radius: 16px;
+	font-weight: bold;
+	color: #fff;
+}
+
+.recommend .brick .brick-box .brick-left-single img{
+	width: 234px;
+	height: 614px;
+}
+.recommend .brick .brick-box .brick-left-single{
+	transition: all 0.5s;
+}
+.recommend .brick .brick-box .brick-left-single:hover{
+	box-shadow: 0px 15px 30px #00000020;
+	transform: translateY(-5px);
+}
+.recommend .brick .brick-box .right{
+	width: 992px;
+}
+
+.recommend .brick .brick-box .right ul li{
+	float: left;
+	text-align: center;
+	width: 234px;
+	height: 300px;
+	background-color: #FFF;
+	margin: 0px 0px 14px 14px;
+}
+.recommend .brick .brick-box .right ul li a{
+	display: block;
+	padding: 20px 0px;
+	color: #333333;
+}
+
+
+.recommend .brick .brick-box .right ul li{
+	transition: all 0.5s;
+}
+.recommend .brick .brick-box .right ul li:hover{
+	box-shadow: 0px 15px 30px #00000020;
+	transform: translateY(-5px);
+}
+.recommend .brick .brick-box .right ul li .title{
+	font-size: 14px;
+	font-weight: 400;
+	color: #333;
+	margin: 0 10px 2px;
+}
+.recommend .brick .brick-box .right ul li .desc{
+	margin: 0 10px 10px;
+	height: 18px;
+	font-size: 12px;
+	color: #b0b0b0;
+}
+.recommend .brick .brick-box .right ul li .price{
+	font-size: 14px;
+	color: #ff6700;
+	margin: 0 10px 14px;
+}
+.recommend .brick .brick-box .right ul li .img{
+	margin: 0 auto 18px;
+}
+.recommend .brick .brick-box .right ul li .img img{
+	width: 160px;
+	height: 160px;
+}
+

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.situ.stmall.common.mapper.AddrMapper">
+    <insert id="insert" parameterType="addr">
+        insert  into addr (`contact`,phone,province,city,county,town,detail,user_id,status)
+        values (#{contact},#{phone},#{province},#{city},#{county},#{town},#{detail},#{userId},#{status})
+    </insert>
+    <update id="update" parameterType="addr">
+        update addr
+        <set>
+            <if test="contact!=null and contact.length>0">
+                contact=#{contact},
+            </if>
+            <if test="phone!=null and phone.length>0">
+                phone=#{phone},
+            </if>
+            <if test="province!=null and province.length>0">
+                province=#{province},
+            </if>
+            <if test="city!=null and city.length>0">
+                city=#{city},
+            </if>
+            <if test="county!=null and county.length>0">
+                county=#{county},
+            </if>
+            <if test="town!=null and town.length>0">
+                town=#{town},
+            </if>
+            <if test="detail!=null and detail.length>0">
+                detail=#{detail},
+            </if>
+            <if test="userId!=null">
+                user_id=#{userId},
+            </if>
+            <if test="status!=null">
+                status=#{status},
+            </if>
+        </set>
+        where id= #{id}
+    </update>
+    <update id="updateStatus">
+        update addr set `status`=0 where user_id=#{userId}
+    </update>
+    <delete id="delete">
+        delete from `addr` where `id` =#{id}
+    </delete>
+    <select id="selectById" resultType="com.situ.stmall.common.bean.Addr">
+        select * from `addr` where `id` =#{id}
+    </select>
+
+    <select id="selectByUserId" resultType="com.situ.stmall.common.bean.Addr">
+        select * from  `addr` where `user_id`=#{userId} and status!=3
+    </select>
+</mapper>

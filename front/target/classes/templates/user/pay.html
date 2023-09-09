@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title>支付</title>
+		<link rel="stylesheet" type="text/css" href="../../static/css/site.css"
+			th:href="@{/css/site.css}"/>
+		<link rel="stylesheet" type="text/css" href="../../static/css/cart.css"
+			th:href="@{/css/cart.css}"/>
+	</head>
+	<body>
+		
+		<div id="header" th:replace="user/userFrag::header('支付订单', '')"></div>
+		
+		<div class="check-order">
+			<div class="container">
+				<div class="order-info clear">
+					<div class="left">
+						<i class="mi-icon icon-ok"></i>
+					</div>
+					<div class="right clear">
+						<div class="left">
+							<h2>订单提交成功！去付款咯～</h2>
+							<p>请在 <span>0 小时 15 分</span> 内完成支付, 超时后将取消订单</p>
+							<p th:text="${'收货信息： '+order.addr.contact +'&nbsp;&nbsp;'+ order.addr.phone +'&nbsp;&nbsp;'
+							+order.addr.province +'&nbsp;&nbsp;'+ order.addr.city+'&nbsp;&nbsp;'+order.addr.county+
+							'&nbsp;&nbsp;'+order.addr.town+'&nbsp;&nbsp;'+order.addr.detail}">
+								收货信息：张三 158****5678 山东省 青岛市 城阳区 城阳街道 金日紫都 办公楼 A座 中享思途 三楼</p>
+						</div>
+						<div class="right">
+							<div class="total">
+								应付总额：<span class="money"
+									th:text="${#aggregates.sum(order.orderDetails.![price*count])}"> 5198</span><span>元</span>
+							</div>
+							<div class="detail">
+								订单详情 <strong><i class="mi-icon icon-down"></i></strong>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="order-info">
+					<div class="title">
+						选择以下支付方式付款
+					</div>
+					<div class="line"></div>
+					<div class="pay-type">
+						<h3>账户余额</h3>
+						<form th:action="@{/user/order/pay}" method="post" id="pay">
+							<input type="hidden" name="orderId" th:value="${param.orderId}"/>
+							<input type="password" name="paypwd" id="paypwd" placeholder="支付密码" maxlength="6"/>
+							<label for="paypwd" class="paypwd">&nbsp;
+								<ul>
+									<li></li>
+									<li></li>
+									<li></li>
+									<li></li>
+									<li></li>
+									<li></li>
+								</ul>
+							</label>
+							<input type="submit" value="付款" />
+						</form>
+					</div>
+					<div class="pay-type">
+						<h3>支付平台</h3>
+						<ul>
+							<li><img src="../../static/img/pay-ali.png" ></li>
+							<li><img src="../../static/img/pay-mi.jpg" ></li>
+							<li><img src="../../static/img/pay-weixin.jpg" ></li>
+						</ul>
+					</div>
+					<div class="pay-type">
+						<h3>银行借记卡及信用卡</h3>
+						<ul>
+							<li><img src="../../static/img/pay-cmb.png" ></li>
+							<li><img src="../../static/img/pay-icbc.png" ></li>
+							<li><img src="../../static/img/pay-abc.png" ></li>
+							<li><img src="../../static/img/pay-ccb.png" ></li>
+							<li><img src="../../static/img/pay-cmb.png" ></li>
+							<li><img src="../../static/img/pay-icbc.png" ></li>
+							<li><img src="../../static/img/pay-abc.png" ></li>
+							<li><img src="../../static/img/pay-ccb.png" ></li>
+							<li><img src="../../static/img/pay-cmb.png" ></li>
+							<li><img src="../../static/img/pay-icbc.png" ></li>
+							<li><img src="../../static/img/pay-abc.png" ></li>
+							<li><img src="../../static/img/pay-ccb.png" ></li>
+							<li><img src="../../static/img/pay-cmb.png" ></li>
+							<li><img src="../../static/img/pay-icbc.png" ></li>
+							<li><img src="../../static/img/pay-abc.png" ></li>
+							<li><img src="../../static/img/pay-ccb.png" ></li>
+							<li><img src="../../static/img/pay-cmb.png" ></li>
+							<li><img src="../../static/img/pay-icbc.png" ></li>
+							<li><img src="../../static/img/pay-abc.png" ></li>
+							<li><img src="../../static/img/pay-ccb.png" ></li>
+							<li><img src="../../static/img/pay-cmb.png" ></li>
+							<li><img src="../../static/img/pay-icbc.png" ></li>
+							<li><img src="../../static/img/pay-abc.png" ></li>
+							<li><img src="../../static/img/pay-ccb.png" ></li>
+							<li><img src="../../static/img/pay-cmb.png" ></li>
+							<li><img src="../../static/img/pay-icbc.png" ></li>
+							<li><img src="../../static/img/pay-abc.png" ></li>
+							<li><img src="../../static/img/pay-ccb.png" ></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<!-- 底部 -->
+		<div th:replace="frag::footer" id="footer"></div>
+		
+		<!-- jQuery -->
+		<script type="text/javascript" src="../../static/js/jquery-2.1.4.js" th:src="@{/js/jquery-2.1.4.js}"></script>
+		<script th:if="false">
+			// 动态页面需要去掉
+			$("#header").load("header.html");
+			$("#footer").load("footer.html");
+			$("form").submit(function(){
+				window.location.href="orderList.html"
+				return false;
+			});
+			
+			$(".btn-pay").attr("href", "pay.html");
+		</script>
+		<script src="../../static/js/pay.js" th:src="@{/js/pay.js}" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

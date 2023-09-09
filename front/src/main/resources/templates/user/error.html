@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title>错误</title>
+		<link rel="stylesheet" type="text/css" href="../../static/css/site.css"
+			th:href="@{/css/site.css}"/>
+		<link rel="stylesheet" type="text/css" href="../../static/css/cart.css"
+			th:href="@{/css/cart.css}"/>
+	</head>
+	<body>
+		
+		<div th:replace="user/userFrag::header('错误', '')"></div>
+		
+		<div class="check-order">
+			<div class="container">
+				<div class="order-info clear">
+					<div class="left">
+						<i class="mi-icon icon-close"></i>
+					</div>
+					<div class="right clear">
+						<div class="left">
+							<h2 th:text="${errMsg}"></h2>
+						</div>
+						<div class="right">
+							<div class="total">
+							</div>
+							<div class="detail">
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		
+		
+		<!-- 底部 -->
+		<div class="site-footer">
+			<div class="container">
+				<div class="footer-service">
+					<ul class="clear">
+						<li><a href=""><i class="mi-icon icon-util"></i>预约维修服务</a></li>
+						<li><a href=""><i class="mi-icon icon-log"></i>7天无理由退货</a></li>
+						<li><a href=""><i class="mi-icon icon-diamond"></i>15天免费换货</a></li>
+						<li><a href=""><i class="mi-icon icon-heart"></i>满69包邮</a></li>
+						<li><a href=""><i class="mi-icon icon-location"></i>520余家售后网点</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<!-- jQuery -->
+		<script src="../../static/js/jquery-2.1.4.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/js/pay.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+		</script>
+	</body>
+</html>

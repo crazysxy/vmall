@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<link rel="icon" href="../static/img/logo.png" type="image/x-icon">
+		<title th:text="${goods.name}">商品详情</title>
+		<link rel="stylesheet" type="text/css" href="../static/css/site.css"
+			th:href="@{/css/site.css}"/>
+		<link rel="stylesheet" type="text/css" href="../static/css/goods.css"
+			th:href="@{/css/goods.css}"/>
+	</head>
+	<body>
+		<div th:replace="frag::header" id="header"></div>
+		
+		<!-- 商品工具栏 -->
+		<div class="goods-bar">
+			<div class="container clear">
+				<div class="left">
+					<span th:text="${goods.name}">Xiaomi Civi</span>
+					<a href="" ><span th:text="${goods.name}+' '+${goods.version}+' '+${goods.color}"> </span></a>
+				</div>
+				<div class="right">
+
+				</div>
+			</div>
+		</div>
+		
+		<!-- 详情 -->
+		<div class="goods" th:object="${goods}">
+			<div class="container clear">
+				<div class="left">
+					<div class="big">
+						<img src="../static/img/big-phone.jpg" 
+							th:src="@{'/upload/'+*{pics[0].url}}">
+					</div>
+					<div class="list" >
+						<img th:each="pic : ${goods.pics}"
+							src="../static/img/big-phone.jpg"
+							th:src="@{'/upload/' + ${pic.url} }" >
+					</div>
+				</div>
+				<div class="right">
+					<h1 th:text="${goods.name}">Xiaomi Civi</h1>
+					<p class="desc" id="content" th:text="${goods.content}">轻薄潮流设计 | 丝绒AG工艺 | 原生美肌人像 | 像素级肌肤焕新技术 | 3200万高清质感自拍 | 双柔光灯+自动对焦 | 3D曲面OLED柔性屏 | 120Hz+Dolby Vision | 4500mAh 大电量 | 55W有线闪充 | 立体声双扬声器 | 多功能NFC</p>
+					<p class="self">HUAWEI自营</p>
+					<p class="price" th:text="${goods.price+'元'}">2599元</p>
+					<div class="line"></div>
+					<div class="info-box">
+						<div class="title">
+							选择版本
+						</div>
+						<ul class="info-list clear">
+							<li class="active" th:text="${goods.version}">8GB+128GB</li>
+						</ul>
+					</div>
+					
+					<div class="info-box">
+						<div class="title">
+							选择颜色
+						</div>
+						<ul class="info-list clear">
+							<li class="active" th:text="${goods.color}">闪闪黑</li>
+						</ul>
+					</div>
+
+					
+					<p class="total" th:text="${ '总计：' + goods.price + '元' }">总计：2599元</p>
+					<div class="btn">
+						<a href="javascript:;" class="add-cart" th:if="${goods.count > 0}"
+							th:href="@{/user/cart/add(goodsId=${goods.id})}">加入购物车</a>
+						<!-- thymeleaf动态路径, 可以使用()的方法添加参数
+							@{/xxx/xx(参数名=值, 参数名=值)}
+						 -->
+						<a href="javascript:;" class="no-goods" th:if="${goods.count == 0}">缺货</a>
+						<!--<a href="javascript:;" class="like"><i class="mi-icon icon-heart"></i><span>喜欢</span></a>-->
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="explain">
+			<div class="container">
+				<h2>价格说明</h2>
+				<p><b>划线价:</b>商品展示的划横线价格为参考价，该价格可能是商品首次上市销售价、品牌专柜标价、商品吊牌价或由品牌供应商提供的正品零售价(如厂商指导价、建议零售价等)或该商品在小米商城曾经肤示过的销售价;由于地区、时间的差异性和市场行情的波动，品牌专柜标价、商品吊牌价等可能会与您购物时展示的不一致，该价格<b>并非原价、仅供参考。</b></p>
+				<p><b>未划线价:</b>指商品的实时销售价格，其不因表述的差异改变性质。但商品具体结算价格可能因该商品参与的满减、预售、限时优惠等单个或多个活动，或者因使用优惠券、红包、米金等而发生变化，<b>最终请以订单结算页展示为准。</b></p>
+				<p><b>其他:</b>商品详情页(含主图)以图片或文字形式标注的到手价、券后价、众筹价、尝鲜价等价格可能是商品在使用优惠券或参与特定优惠活动或在特定时间段等情形下，由系统根据相应规则川计算得出的预估单品结算价格。<b>具体请以订单结算页面的标价、优惠条件或具体活动规则为准。</b></p>
+			</div>
+			
+		</div>
+		
+		<!-- 底部 -->
+		<div th:replace="frag::footer" id="footer"></div>		
+
+		<!-- 引入jQuery -->
+		<script type="text/javascript" src="../static/js/jquery-2.1.4.js" th:src="@{/js/jquery-2.1.4.js}"></script>
+		<script>
+			str =$('#content').text();
+			$('#content').html(str);
+		</script>
+		<script th:if="false">
+			// 动态页面需要去掉
+			$("#header").load("header.html");
+			$("#footer").load("footer.html");
+		</script>
+		<script type="text/javascript">
+			// 绑定图片事件
+			$(".goods .list img").mouseover(function(){
+				$(".goods .big img").attr("src", $(this).attr("src"));
+			});
+		</script>
+
+	</body>
+</html>

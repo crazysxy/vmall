@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.situ.stmall.common.mapper.CategoryMapper">
+
+    <resultMap id="resultMapCategory" type="category">
+        <result column="parent_id" property="parentId"/>
+        <association column="parent_id" property="parent" javaType="category" select="com.situ.stmall.common.mapper.CategoryMapper.findById"/>
+    </resultMap>
+
+    <resultMap id="resultMapParent" type="category">
+        <id column="id" property="id"></id>
+        <collection column="id" property="children" ofType="category" select="com.situ.stmall.common.mapper.CategoryMapper.selectByParentId" />
+        <collection column="id" property="goodsList" ofType="goods" select="com.situ.stmall.common.mapper.GoodsMapper.findByCategory" />
+    </resultMap>
+
+    <resultMap id="resultMapParentRecom" type="category">
+        <id column="id" property="id"></id>
+        <collection column="id" property="children" ofType="category" select="com.situ.stmall.common.mapper.CategoryMapper.selectByParentIdRecom" />
+        <collection column="id" property="goodsList" ofType="goods" select="com.situ.stmall.common.mapper.GoodsMapper.findByCategoryAndRecom" />
+    </resultMap>
+
+
+    <insert id="insert" parameterType="category">
+        insert  into category (`name`,`dscp`,`pic`,`parent_id`,`recom`,`status`) values(#{name},#{dscp},#{pic},#{parentId},#{recom},#{status})
+    </insert>
+    <update id="update" parameterType="category">
+        update category
+        <set>
+            <if test="name!=null and name.length>0">
+                `name`=#{name},
+            </if>
+            <if test="dscp!=null and dscp.length>0">
+                `dscp`=#{dscp},
+            </if>
+            <if test="pic!=null and pic.length>0">
+                `pic`=#{pic},
+            </if>
+            <if test="parentId!=null">
+                `parent_id`=#{parentId},
+            </if>
+            <if test="recom!=null">
+                `recom`=#{recom},
+            </if>
+            <if test="status!=null">
+                `status`=#{status},
+            </if>
+        </set>
+            where `id`=#{id}
+    </update>
+    <delete id="delete">
+        delete  from  category where id=#{id};
+    </delete>
+    <select id="selectByCondition" resultMap="resultMapCategory">
+        select * from category
+        <where>
+            <if test="name!=null and name.length>0">
+               AND  `name` like '%${name}%'
+            </if>
+            <if test="dscp!=null and dscp.length>0">
+                AND `dscp` like '%${dscp}%'
+            </if>
+            <if test="pic!=null and pic.length>0">
+                AND `pic`=#{pic}
+            </if>
+            <if test="parentId!=null">
+                AND `parent_id`=#{parentId}
+            </if>
+            <if test="recom!=null">
+                AND `recom`=#{recom}
+            </if>
+            <if test="status!=null">
+                AND `status`=#{status}
+            </if>
+
+        </where>
+    </select>
+    <select id="findById" resultMap="resultMapCategory">
+    select  * from category where id =#{id}
+    </select>
+    <select id="findByName" resultType="com.situ.stmall.common.bean.Category">
+        select  * from category where name =#{name}
+    </select>
+    <select id="findName" resultType="category">
+        select * from  category where id=${id}
+    </select>
+    <select id="selectAllParent" resultMap="resultMapParent">
+        select * from `category` where `parent_id`=0 and `status` =0
+    </select>
+    <select id="selectByParentId" resultMap="resultMapParent">
+        select * from  `category` where `parent_id`=#{id} and `status` =0
+    </select>
+    <select id="selectByParentIdRecom" resultMap="resultMapParentRecom">
+        select * from  `category` where `parent_id`=#{id} and `status` =0
+    </select>
+
+
+    <select id="selectAllParentForRecom" resultMap="resultMapParentRecom">
+        select * from `category` where `parent_id`=0 and `status` =0
+    </select>
+
+    <select id="findByInterestedCategoryId" resultMap="resultMapParentRecom">
+        select * from  category where id=${id}
+    </select>
+</mapper>

@@ -1,0 +1,153 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+
+a{
+	text-decoration: none;
+}
+body>.left{
+	width: 200px;
+}
+body>.left img{
+	width: 200px;
+}
+
+body>.right{
+	width: 1156px;
+}
+.clear::after{
+	content: "";
+	display: block;
+	clear: both;
+}
+.header{
+	padding: 20px;
+}
+.header .logo{
+	float: left;
+	position: relative;
+}
+.header .logo img{
+	width: 40px;
+	height: 40px;
+	display: inline-block;
+}
+.header .logo a{
+	display: inline-block;
+	color: #333333;
+	font-size: 24px;
+	height: 40px;
+	width: 200px;
+	line-height: 40px;
+}
+.header .logo a span{
+	position: absolute;
+	top: 0px;
+	left: 50px;
+}
+
+.header .nav{
+	float: right;
+	background-color: #fff;
+}
+.header .nav ul{
+	list-style: none;
+}
+.header .nav ul li{
+	float: left;
+	margin-left: 10px;
+	margin-right: 10px;
+	display: inline-block;
+	height: 40px;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 40px;
+}
+.header .nav ul li::before{
+	content: "";
+}
+.header .nav ul li a{
+	color: #838383;
+}
+.header .nav ul li a:hover{
+	color: #FF6700;
+}
+
+.form {
+	width: 360px;
+	margin: 40px auto;
+}
+
+.form h2 a{
+	text-align: left;
+	color: #bbb;
+	font-size: 22px;
+	font-weight: 400;
+	padding-bottom: 20px;
+}
+
+.form h2 a{
+	margin-right: 20px;
+}
+
+.form h2 .active{
+	color: #333;
+	position: relative;
+}
+
+.form h2 .active::before{
+	content: "";
+	display: block;
+	width: 44px;
+	height: 4px;
+	background-color: #FF6700;
+	border-radius: 2px;
+	position: absolute;
+	top: 30px;
+	left: 0px;
+}
+
+.form .other{
+	text-align: center;
+}
+.form .other h2{
+	margin: 20px;
+	text-align: center;
+	font-size: 17px;
+	font-weight: 400;
+	color: #aaa;
+	line-height: 40px;
+}
+.form .other .type i{
+	margin: 0px 20px;
+}
+
+.form input{
+	display: block;
+	outline-style: none ;
+	width: 316px;
+	height: 61px;
+	padding: 0px 20px;
+	font-size: 17px;
+	background-color: #FCF2F3;
+	border-width: 0px;
+	margin-top: 20px;
+	box-sizing: content-box;
+	border-radius: 5px;
+}
+
+.form input[type='submit']{
+	background-color: #FF5C00;
+	color: #FFF;
+}
+.form input[type='submit']:hover{
+	background-color: #FF7E29;
+}
+.form .link{
+	margin-top: 20px;
+}
+.form .link a{
+	font-size: 17px;
+	color: #FF6700;
+}

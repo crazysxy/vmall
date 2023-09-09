@@ -1,0 +1,31 @@
+
+		
+		<div class="header" th:fragment="header(title, tips)">
+			<div class="container clear">
+				<div class="left clear">
+					<div class="logo left">
+						<a href="../index.html" th:href="@{/}"><img src="../../static/img/logo-mi.png"
+							th:src="@{/img/logo-mi.png}"></a>
+					</div>
+					<div class="title left" th:text="${title}">
+						我的购物车
+					</div>
+					<div class="tips left" th:text="${tips}">
+						温馨提示：产品是否购买成功，以最终下单为准哦，请尽快结算
+					</div>
+				</div>
+				<div class="right">
+					<span class="user">
+						<a href="">[[${session.user.username}]] <i class="mi-icon icon-down"></i></a>
+						<div class="user-menu">
+							<ul>
+								<li><a href="" th:href="@{/user/userInfo}">个人中心</a></li>
+								<li><a href="" th:href="@{/user/logout}">退出登录</a></li>
+							</ul>
+						</div>
+					</span>
+					<span>|</span>
+					<a th:href="@{/user/order/toList}" class="order">我的订单</a>
+				</div>
+			</div>
+		</div>

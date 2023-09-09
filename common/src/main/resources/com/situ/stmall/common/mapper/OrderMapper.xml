@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.situ.stmall.common.mapper.OrderMapper">
+
+
+    <resultMap id="resultMapOrder" type="order">
+        <id column="id" property="id"/>
+        <result column="addr_id" property="addrId"/>
+        <result column="user_id" property="userId"/>
+        <association column="user_id" property="userName" javaType="string" select="com.situ.stmall.common.mapper.UserMapper.findName"/>
+        <association column="addr_id" property="addr" javaType="addr" select="com.situ.stmall.common.mapper.AddrMapper.selectById"/>
+        <collection column="id" property="orderDetails" ofType="orderDetail" select="com.situ.stmall.common.mapper.OrderDetailMapper.selectByOrderId"/>
+    </resultMap>
+
+
+    <insert id="insert" parameterType="order">
+    insert into `order` (id,user_id,addr_id)
+    values(#{id},#{userId},#{addrId});
+
+    </insert>
+
+    <update id="updStatus">
+        update `order` set status = 0 where id=#{id}
+    </update>
+
+    <update id="update" parameterType="order">
+        update `order`
+    <set>
+        <if test="addrId!=null">
+            addr_id =#{addrId},
+        </if>
+        <if test="status!=null">
+            status =#{status},
+        </if>
+    </set>
+            where id= #{id}
+    </update>
+
+    <select id="selectById" resultMap="resultMapOrder">
+        select * from  `order` where `id` =#{id}
+    </select>
+
+    <select id="selectAll" resultMap="resultMapOrder">
+--         select * from `order` where `status`!=8  order by `create_time` DESC
+        select * from `order`  order by `create_time` DESC
+    </select>
+    <select id="selectByUserId" resultMap="resultMapOrder">
+        select * from `order` where `user_id`=#{userId} and `status`!=8 order by `create_time` DESC
+    </select>
+    <select id="selectByUserIdAndStatus" resultMap="resultMapOrder">
+        select * from `order` where `user_id`=#{userId} and `status` in (
+        <foreach collection="status" item="statu" separator=",">
+            #{statu}
+        </foreach>
+            )
+    </select>
+    <select id="selectByAddrId" resultType="com.situ.stmall.common.bean.Order">
+        select * from `order` where addr_id=#{addrId} and `status`!=8
+    </select>
+</mapper>
